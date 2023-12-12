@@ -1,1 +1,1 @@
-Follow the guidelines in CEC to prepare the dataset
+Follow the guidelines in LIMIT to prepare the dataset
