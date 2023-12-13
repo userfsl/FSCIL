@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from models.base.Network import MYNET as Net
 import numpy as np
 
+
 class MYNET(Net):
 
     def __init__(self, args, mode=None):
