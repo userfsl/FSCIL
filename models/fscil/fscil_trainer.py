@@ -21,62 +21,6 @@ from prettytable import PrettyTable
 import itertools
 
 
-class ConfusionMatrix(object):
-
-    def __init__(self, num_classes: int, labels: list):
-        # self.matrix = np.zeros((num_classes, num_classes))
-        self.num_classes = num_classes
-        self.labels = labels
-
-    def update(self, preds, labels, matrix):
-        for p, t in zip(preds, labels):
-            # self.matrix[p, t] += 1
-            matrix[p, t] += 1
-        return matrix
-
-    def plot(self, session, matrix, normalize=True):
-        # cm = self.matrix
-        cm = matrix
-        classes = []
-        for i in range(self.num_classes):
-            classes.append(i)
-        if normalize:
-            cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-            np.set_printoptions(formatter={'float': '{: 0.2f}'.format})
-            print(cm)
-        else:
-            print(cm)
-        
-        # matrix = self.matrix
-        # plt.imshow(matrix , interpolation='nearest', cmap=cmap)
-        plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-        # plt.imshow(cm, interpolation='nearest')
-        title='Confusion matrix'
-        plt.title(title)
-        plt.colorbar()
-        tick_marks = np.arange(len(classes))
-        a = [0,20,40,60,80,100,120,140,160,180,200]
-        # labels = ['A', 'B', 'C', 'D','E']
-        plt.xticks(a, a, rotation = 30)
-        plt.yticks(a, a, rotation = 30)
-        # plt.xticks(tick_marks, classes, rotation=45)
-        # plt.yticks(tick_marks, classes)
-        # plt.ylim(len(classes) - 0.5, -0.5)
-        # fmt = '.2f' if normalize else 'd'
-        fmt = '.2f'# if normalize else 'd'
-        thresh = cm.max() / 2.
-        # for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        #     plt.text(j, i, format(cm[i, j], fmt),
-        #              horizontalalignment="center",
-        #              color="white" if cm[i, j] > thresh else "black")
-        plt.tight_layout()
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-        plt.show()
-        plt.savefig('%s.png'%(session), dpi=1600)
-        plt.close()
-
-
 
 class FSCILTrainer(Trainer):
     def __init__(self, args):
@@ -264,9 +208,7 @@ class FSCILTrainer(Trainer):
                         'lr:%.5f,training_loss:%.5f,training_acc:%.5f,test_loss:%.5f,test_acc:%.5f' % (
                             lrc, tl, ta, tsl, tsa))
                 else:
-                    # take the last session's testloader for validation
                     # vl, va = self.validation1(self.model, query_val, semantic, proto, label_val, args)
-                    # vl, va = self.validation()
                     vl, va = self.test(self.model, testloader, args, session)
                     print(va)
                     vl0, va0 = self.validation()
@@ -500,7 +442,7 @@ class FSCILTrainer(Trainer):
             label = label.view(args.episode_query, args.episode_way)
             label_new = torch.arange(args.episode_way, args.episode_way + args.low_way).repeat(args.episode_query) #
             label_new = label_new.view(args.episode_query, args.low_way).cuda()
-            label_new = label_new[:, :int(args.low_way/4)]
+            label_new = label_new[:, :10]#int(args.low_way/4)]
             label_new = torch.cat([label, label_new], dim = -1)
             label_new = label_new.view(-1)
             if args.low_way == 0:
