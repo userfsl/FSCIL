@@ -1,7 +1,7 @@
 ## Datasets and pretrained models
 Please follow the guidelines in [LIMIT](https://github.com/zhoudw-zdw/TPAMI-Limit) to prepare the dataset.
 
-We also provide the pre-trained models in (https://drive.google.com/file/d/1EqQ8C8vNmZ3ez_qiSGnkp2zZba9Q45z0/view?usp=sharing). Please unzip and place it under `checkpoint/` folder.
+We also provide the pre-trained models in (https://drive.google.com/file/d/1EqQ8C8vNmZ3ez_qiSGnkp2zZba9Q45z0/view?usp=sharing). Please place it under `checkpoint/` folder.
 
 ## Training scripts
 If you want to use the models pre-trained on the base session, you can run:
