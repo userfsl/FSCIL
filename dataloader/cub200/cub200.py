@@ -6,7 +6,6 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
-from .autoaugment import AutoAugImageNetPolicy
 
 class CUB200(Dataset):
 
