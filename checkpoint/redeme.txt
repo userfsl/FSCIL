@@ -1,1 +1,1 @@
-Place the pre-trained models in this place.
+Place the pre-trained models in this folder.
